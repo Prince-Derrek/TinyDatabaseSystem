@@ -43,7 +43,26 @@ SELECT Name, InStock FROM Products
 
 ```
 
-### 4. Join Tables
+### 4. Update Data
+
+Modify existing rows. You can update multiple columns at once.
+*Note: You strictly cannot update the Primary Key column.*
+
+```sql
+UPDATE Products SET Name = 'Gaming Laptop', InStock = false WHERE Id = 101
+
+```
+
+### 5. Delete Data
+
+Remove rows that match a specific condition.
+
+```sql
+DELETE FROM Products WHERE Id = 101
+
+```
+
+### 6. Join Tables
 
 Combine data from two tables based on a matching column.
 
