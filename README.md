@@ -32,7 +32,7 @@ Swagger UI will be available at: `http://localhost:<port>/swagger`
 
 ## ✨ Key Features
 
-* **SQL-Like Query Language:** Supports `CREATE`, `INSERT`, `SELECT`.
+* **Full CRUD Support:** Supports `CREATE`, `INSERT`, `SELECT`, `UPDATE`, and `DELETE`.
 * **Relational Data:** Supports `JOIN` operations between tables.
 * **Indexing:** Implements **Primary Key constraints** using Hash Indexing (O(1) lookups).
 * **Strong Typing:** Enforces schema validation for `INT`, `STRING`, and `BOOL`.
@@ -55,8 +55,14 @@ CREATE TABLE Users (Id INT PRIMARY KEY, Name STRING, IsActive BOOL);
 INSERT INTO Users VALUES (1, 'Derrek', true);
 INSERT INTO Users VALUES (2, 'Kimani', false);
 
+-- Modify data
+UPDATE Users SET Name = 'Derrek Kimani' WHERE Id = 1;
+
 -- Query with a Join
 SELECT * FROM Users JOIN Orders ON Users.Id = Orders.UserId;
+
+-- Delete data
+DELETE FROM Users WHERE Id = 2;
 
 ```
 
