@@ -54,5 +54,5 @@ coverage/
 TestResults/
 
 # Local environment & secret settings 
-appsetings.Development.json
+appsettings.Development.json
 secrets.json
