@@ -79,5 +79,96 @@ namespace TinyDB.Core.Definitions
                 _ => false
             };
         }
+        public int DeleteRows(string columnName, object value)
+        {
+            // Find the column index
+            var colIndex = Columns.FindIndex(c => c.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase));
+            if (colIndex == -1) throw new ArgumentException($"Column '{columnName}' not found.");
+
+            // Check if we are deleting by Primary Key (Fast Path O(1))
+            if (_primaryKeyColumnIndex.HasValue && colIndex == _primaryKeyColumnIndex.Value)
+            {
+                if (_primaryKeyIndex.ContainsKey(value))
+                {
+                    var row = _primaryKeyIndex[value];
+                    Rows.Remove(row); // O(N) in List, but O(1) in Index lookup
+                    _primaryKeyIndex.Remove(value);
+                    return 1;
+                }
+                return 0;
+            }
+
+            // Slow Path: Scan all rows (O(N))
+            var rowsToDelete = new List<object[]>();
+            foreach (var row in Rows)
+            {
+                if (row[colIndex].Equals(value))
+                {
+                    rowsToDelete.Add(row);
+                }
+            }
+
+            foreach (var row in rowsToDelete)
+            {
+                Rows.Remove(row);
+                // Also remove from index if we have one
+                if (_primaryKeyColumnIndex.HasValue)
+                {
+                    var pkVal = row[_primaryKeyColumnIndex.Value];
+                    _primaryKeyIndex.Remove(pkVal);
+                }
+            }
+
+            return rowsToDelete.Count;
+        }
+
+        public int UpdateRows(Dictionary<string, object> updates, string whereCol, object whereVal)
+        {
+            // 1. Identify rows to update
+            var colIndex = Columns.FindIndex(c => c.Name.Equals(whereCol, StringComparison.OrdinalIgnoreCase));
+            if (colIndex == -1) throw new ArgumentException($"WHERE Column '{whereCol}' not found.");
+
+            List<object[]> targets = new List<object[]>();
+
+            // Optimization: PK Lookup
+            if (_primaryKeyColumnIndex.HasValue && colIndex == _primaryKeyColumnIndex.Value)
+            {
+                if (_primaryKeyIndex.TryGetValue(whereVal, out var row)) targets.Add(row);
+            }
+            else
+            {
+                // Scan
+                targets.AddRange(Rows.Where(r => r[colIndex].Equals(whereVal)));
+            }
+
+            // 2. Map update columns to indices
+            var updateIndices = new Dictionary<int, object>();
+            foreach (var kvp in updates)
+            {
+                int idx = Columns.FindIndex(c => c.Name.Equals(kvp.Key, StringComparison.OrdinalIgnoreCase));
+                if (idx == -1) throw new ArgumentException($"Target Column '{kvp.Key}' not found.");
+
+                // Safety: Prevent PK updates
+                if (_primaryKeyColumnIndex.HasValue && idx == _primaryKeyColumnIndex.Value)
+                    throw new ArgumentException("Updating Primary Key is not allowed.");
+
+                // Type Check
+                if (!IsValidType(kvp.Value, Columns[idx].Type))
+                    throw new ArgumentException($"Type mismatch for column '{kvp.Key}'.");
+
+                updateIndices[idx] = kvp.Value;
+            }
+
+            // 3. Apply updates
+            foreach (var row in targets)
+            {
+                foreach (var kvp in updateIndices)
+                {
+                    row[kvp.Key] = kvp.Value;
+                }
+            }
+
+            return targets.Count;
+        }
     }
 }
