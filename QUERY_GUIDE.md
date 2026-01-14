@@ -1,4 +1,4 @@
-_# TinySQL Syntax Guide
+# TinySQL Syntax Guide
 
 ## Data Types
 * `INT`: Integer numbers.
