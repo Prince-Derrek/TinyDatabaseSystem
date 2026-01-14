@@ -58,7 +58,14 @@ namespace TinyDB.Core.Parsing
                     _ => throw new Exception($"Unknown column type: {typeToken.Value}")
                 };
 
-                table.AddColumn(colName, colType);
+                bool isPk = false;
+                if (Match(TokenType.PRIMARY))
+                {
+                    Consume(TokenType.KEY, "Expected 'KEY' after 'PRIMARY'");
+                    isPk = true;
+                }
+
+                table.AddColumn(colName, colType, isPk);
 
             } while (Match(TokenType.COMMA)); // Continue if comma is found
 
