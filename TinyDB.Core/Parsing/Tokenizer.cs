@@ -23,7 +23,9 @@ namespace TinyDB.Core.Parsing
             { "STRING", TokenType.STRING_TYPE },
             { "BOOL", TokenType.BOOL_TYPE },
             { "TRUE", TokenType.BOOLEAN_LITERAL },
-            { "FALSE", TokenType.BOOLEAN_LITERAL }
+            { "FALSE", TokenType.BOOLEAN_LITERAL },
+            { "PRIMARY", TokenType.PRIMARY },
+            { "KEY", TokenType.KEY }
         };
 
         public Tokenizer(string text)

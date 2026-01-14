@@ -32,6 +32,10 @@
         // Identifiers
         IDENTIFIER,      // Table or Column names (e.g., Users, Id)
 
+        //Indexing
+        PRIMARY,
+        KEY,
+
         // End of File
         EOF
     }
