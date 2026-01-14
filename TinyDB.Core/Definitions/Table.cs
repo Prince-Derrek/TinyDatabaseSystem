@@ -8,7 +8,7 @@ namespace TinyDB.Core.Definitions
     {
         public string Name { get; }
         public List<Column> Columns { get; }
-        public List<object[]> Rows { get; } // A row is just an array of objects
+        public List<object[]> Rows { get; } 
 
         public Table(string name)
         {
