@@ -25,7 +25,9 @@ namespace TinyDB.Core.Parsing
             { "TRUE", TokenType.BOOLEAN_LITERAL },
             { "FALSE", TokenType.BOOLEAN_LITERAL },
             { "PRIMARY", TokenType.PRIMARY },
-            { "KEY", TokenType.KEY }
+            { "KEY", TokenType.KEY },
+            { "JOIN", TokenType.JOIN },
+            { "ON", TokenType.ON }
         };
 
         public Tokenizer(string text)
@@ -55,6 +57,8 @@ namespace TinyDB.Core.Parsing
                 if (current == ',') { tokens.Add(new Token(TokenType.COMMA, ",", _position++)); continue; }
                 if (current == '*') { tokens.Add(new Token(TokenType.STAR, "*", _position++)); continue; }
                 if (current == ';') { tokens.Add(new Token(TokenType.SEMICOLON, ";", _position++)); continue; }
+                if (current == '.') { tokens.Add(new Token(TokenType.DOT, ".", _position++)); continue; }
+                if (current == '=') { tokens.Add(new Token(TokenType.EQUALS, "=", _position++)); continue; }
 
                 // 3. String Literals (starts with single quote ')
                 if (current == '\'')

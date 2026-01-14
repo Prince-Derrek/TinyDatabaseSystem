@@ -36,6 +36,12 @@
         PRIMARY,
         KEY,
 
+        //Joins
+        JOIN,
+        ON,
+        DOT, // .
+        EQUALS, // =
+
         // End of File
         EOF
     }
