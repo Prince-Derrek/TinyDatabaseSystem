@@ -1,16 +1,56 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36717.8 d17.14
+VisualStudioVersion = 17.14.36717.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A48F40AE-2A73-418A-ABEC-959835C66556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyDB.Core", "TinyDB.Core\TinyDB.Core.csproj", "{E70C2C65-2960-4D07-A26D-9D2B15363B61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyDB.Repl", "TinyDB.Repl\TinyDB.Repl.csproj", "{CE7DEDC1-B459-4B43-B450-26135AA3F506}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyDB.Web", "TinyDB.Web\TinyDB.Web.csproj", "{9CF5D007-7F3C-46DD-A9B4-2483BC4CF526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyDB.Tests", "TinyDB.Tests\TinyDB.Tests.csproj", "{9F2C5C0B-61A9-42BD-8D70-E26423945D31}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E70C2C65-2960-4D07-A26D-9D2B15363B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E70C2C65-2960-4D07-A26D-9D2B15363B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E70C2C65-2960-4D07-A26D-9D2B15363B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E70C2C65-2960-4D07-A26D-9D2B15363B61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE7DEDC1-B459-4B43-B450-26135AA3F506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7DEDC1-B459-4B43-B450-26135AA3F506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7DEDC1-B459-4B43-B450-26135AA3F506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7DEDC1-B459-4B43-B450-26135AA3F506}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF5D007-7F3C-46DD-A9B4-2483BC4CF526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CF5D007-7F3C-46DD-A9B4-2483BC4CF526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CF5D007-7F3C-46DD-A9B4-2483BC4CF526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CF5D007-7F3C-46DD-A9B4-2483BC4CF526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F2C5C0B-61A9-42BD-8D70-E26423945D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F2C5C0B-61A9-42BD-8D70-E26423945D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F2C5C0B-61A9-42BD-8D70-E26423945D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F2C5C0B-61A9-42BD-8D70-E26423945D31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E70C2C65-2960-4D07-A26D-9D2B15363B61} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{CE7DEDC1-B459-4B43-B450-26135AA3F506} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9CF5D007-7F3C-46DD-A9B4-2483BC4CF526} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9F2C5C0B-61A9-42BD-8D70-E26423945D31} = {A48F40AE-2A73-418A-ABEC-959835C66556}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87C9CF52-3736-4046-A40A-574A598BF112}

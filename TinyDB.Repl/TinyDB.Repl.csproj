@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TinyDB.Core\TinyDB.Core.csproj" />
+  </ItemGroup>
+
 </Project>
