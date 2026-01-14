@@ -10,7 +10,10 @@
         VALUES,
         SELECT,
         FROM,
-        WHERE,   // Reserved for later
+        WHERE,
+        UPDATE,
+        SET,
+        DELETE,
 
         // Data Types
         INT_TYPE,

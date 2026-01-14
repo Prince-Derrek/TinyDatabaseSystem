@@ -27,7 +27,10 @@ namespace TinyDB.Core.Parsing
             { "PRIMARY", TokenType.PRIMARY },
             { "KEY", TokenType.KEY },
             { "JOIN", TokenType.JOIN },
-            { "ON", TokenType.ON }
+            { "ON", TokenType.ON },
+            { "UPDATE", TokenType.UPDATE },
+            { "SET", TokenType.SET },
+            { "DELETE", TokenType.DELETE }
         };
 
         public Tokenizer(string text)
