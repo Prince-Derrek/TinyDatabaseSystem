@@ -27,6 +27,8 @@ namespace TinyDB.Core.Parsing
             if (Match(TokenType.CREATE)) return ParseCreateTable();
             if (Match(TokenType.INSERT)) return ParseInsert();
             if (Match(TokenType.SELECT)) return ParseSelect();
+            if (Match(TokenType.DELETE)) return ParseDelete(); // NEW
+            if (Match(TokenType.UPDATE)) return ParseUpdate(); // NEW
 
             throw new Exception($"Unexpected token: {Peek().Type}");
         }
@@ -235,6 +237,58 @@ namespace TinyDB.Core.Parsing
         }
 
         // --------------------------------------------------------
+        // HANDLER: DELETE
+        // Syntax: DELETE FROM <Table> WHERE <Col> = <Val>
+        // --------------------------------------------------------
+        private ExecutionResult ParseDelete()
+        {
+            Consume(TokenType.FROM, "Expected 'FROM'");
+            var tableName = Consume(TokenType.IDENTIFIER, "Expected table name").Value;
+            var table = _engine.GetTable(tableName);
+
+            Consume(TokenType.WHERE, "Expected 'WHERE'");
+            var colName = Consume(TokenType.IDENTIFIER, "Expected column name").Value;
+            Consume(TokenType.EQUALS, "Expected '='");
+
+            var valToken = Advance();
+            object value = ParseValue(valToken);
+
+            int count = table.DeleteRows(colName, value);
+            return new ExecutionResult($"{count} rows deleted.");
+        }
+
+        // --------------------------------------------------------
+        // HANDLER: UPDATE
+        // Syntax: UPDATE <Table> SET <Col>=<Val>, ... WHERE <Col>=<Val>
+        // --------------------------------------------------------
+        private ExecutionResult ParseUpdate()
+        {
+            var tableName = Consume(TokenType.IDENTIFIER, "Expected table name").Value;
+            var table = _engine.GetTable(tableName);
+
+            Consume(TokenType.SET, "Expected 'SET'");
+
+            var updates = new Dictionary<string, object>();
+            do
+            {
+                var col = Consume(TokenType.IDENTIFIER, "Expected column").Value;
+                Consume(TokenType.EQUALS, "Expected '='");
+                var valToken = Advance();
+                updates[col] = ParseValue(valToken);
+            }
+            while (Match(TokenType.COMMA));
+
+            Consume(TokenType.WHERE, "Expected 'WHERE'");
+            var whereCol = Consume(TokenType.IDENTIFIER, "Expected column").Value;
+            Consume(TokenType.EQUALS, "Expected '='");
+            var whereValToken = Advance();
+            object whereVal = ParseValue(whereValToken);
+
+            int count = table.UpdateRows(updates, whereCol, whereVal);
+            return new ExecutionResult($"{count} rows updated.");
+        }
+
+        // --------------------------------------------------------
         // HELPERS
         // --------------------------------------------------------
 
@@ -272,6 +326,16 @@ namespace TinyDB.Core.Parsing
                 indices.Add(idx);
             }
             return indices;
+        }
+        private object ParseValue(Token token)
+        {
+            return token.Type switch
+            {
+                TokenType.INTEGER_LITERAL => int.Parse(token.Value),
+                TokenType.STRING_LITERAL => token.Value,
+                TokenType.BOOLEAN_LITERAL => bool.Parse(token.Value),
+                _ => throw new Exception($"Unexpected value: {token.Value}")
+            };
         }
     }
 }
