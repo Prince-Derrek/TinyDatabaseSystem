@@ -20,5 +20,12 @@ Below are the explicit engineering trade-offs made during development:
 * **Algorithm:** `JOIN` operations use a Nested Loop (O(N*M)), which performs poorly on large datasets.
 
 ## 4. SQL Support
-* Supported: `CREATE TABLE`, `INSERT`, `SELECT`, `JOIN`, `WHERE` (partial/implicit via Primary Key).
-* Not Supported: `UPDATE`, `DELETE`, `GROUP BY`, `ORDER BY`, `NULL` values.
+* **Supported:** * `CREATE TABLE`
+  * `INSERT`
+  * `SELECT` (including `JOIN`)
+  * `UPDATE` (Simple equality `WHERE` only; Primary Keys cannot be updated)
+  * `DELETE` (Simple equality `WHERE` only)
+* **Not Supported:** * `GROUP BY`
+  * `ORDER BY`
+  * `NULL` values
+  * Complex `WHERE` clauses (e.g., `>`, `<`, `OR`, `AND`)
