@@ -1,4 +1,3 @@
-```markdown
 # TinySQL: A Relational Database Engine from Scratch
 
 **TinySQL** is a lightweight, fully functional Relational Database Management System (RDBMS) implemented in C# (.NET 8). 
@@ -68,4 +67,3 @@ This project was designed and implemented with the guidance of an AI System Arch
 * **Role of AI:** Provided architectural phases, explained RDBMS concepts, and assisted with C# syntax for parsing logic.
 * **Role of Human:** Executed implementation, verified logic through testing, and made design decisions regarding scope (e.g., choosing In-Memory storage).
 
-```
